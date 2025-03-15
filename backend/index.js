@@ -1,9 +1,9 @@
-require("dotenv").config({ path: __dirname + "/.env" });
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const jobRoutes = require("./routes/JobRoutes");
 const scrapeJobs = require("./scripts/scraper");
+require('dotenv').config();
 const cron = require("node-cron");
 
 const app = express();
