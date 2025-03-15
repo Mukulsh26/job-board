@@ -3,9 +3,11 @@ const Job = require("../models/Job");
 
 async function scrapeJobs() {
   console.log("🔍 Scraping jobs...");
+  
   const browser = await puppeteer.launch({
-    headless: false, 
-    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-blink-features=AutomationControlled"]
+    executablePath: process.env.CHROMIUM_PATH || puppeteer.executablePath(),
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 
   const page = await browser.newPage();
