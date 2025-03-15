@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-app.use("/jobs", jobRoutes);
+app.use("/api/jobs", jobRoutes);
 
 // Run scraper once on startup
 scrapeJobs();

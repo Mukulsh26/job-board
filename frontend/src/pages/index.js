@@ -21,7 +21,7 @@ export default function Home() {
     setLoading(true);
 
     try {
-      const { data } = await axios.get(`http://localhost:5000/jobs?page=${page}&limit=10`);
+      const { data } = await axios.get(`http://localhost:5000/api/jobs?page=${page}&limit=10`);
       const newJobs = [...jobs, ...data.jobs];
 
       setJobs(newJobs);
@@ -85,7 +85,7 @@ export default function Home() {
           </div>
         ))}
       </div>
-      
+
       {loading && <p className="mt-6 text-gray-400">Loading more jobs...</p>}
     </div>
   );

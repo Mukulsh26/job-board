@@ -1,20 +1,15 @@
 {
     "version": 2,
     "builds": [
-      { "src": "api/*.js", "use": "@vercel/node" }
+      {
+        "src": "index.js",
+        "use": "@vercel/node"
+      }
     ],
     "routes": [
-      { "src": "/api/(.*)", "dest": "/api/$1" }
-    ],
-    "rewrites": [
-      { "source": "/jobs", "destination": "/api/jobs" },
-      { "source": "/jobs/:id", "destination": "/api/jobs/:id" }
-    ],
-    "crons": [
       {
-        "path": "/api/scraper",
-        "schedule": "0 0 * * *"
+        "src": "/(.*)",
+        "dest": "index.js"
       }
     ]
   }
-  
