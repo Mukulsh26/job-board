@@ -4,7 +4,6 @@ async function scrapeJobs() {
   console.log("🔍 Scraping jobs...");
 
   const browser = await puppeteer.launch({
-    executablePath: "/usr/bin/google-chrome-stable", // Use system-installed Chrome
     headless: "new",
     args: [
       "--no-sandbox",
