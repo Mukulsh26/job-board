@@ -3,9 +3,15 @@ const Job = require("../models/Job");
 
 async function scrapeJobs() {
   console.log("🔍 Scraping jobs...");
+  
   const browser = await puppeteer.launch({
-    headless: false, 
-    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-blink-features=AutomationControlled"]
+    headless: "new",
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-gpu"
+    ],
   });
 
   const page = await browser.newPage();
@@ -25,8 +31,7 @@ async function scrapeJobs() {
     });
 
     console.log(`✅ Scraped ${jobs.length} jobs.`);
-    console.log("✅ Scraped jobs:", JSON.stringify(jobs, null, 2));
-
+    
     if (jobs.length > 0) {
       for (let job of jobs) {
         await Job.findOneAndUpdate(
