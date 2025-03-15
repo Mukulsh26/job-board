@@ -37,7 +37,7 @@ export default function JobDetails() {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center p-6">
       <h1 className="text-4xl font-bold mb-6">🚀 Job Board</h1>
-      {/* Job Details Card */}
+      
       {job ? (
         <div className="bg-[#1E293B] shadow-lg rounded-lg p-6 w-full max-w-3xl border border-gray-700">
           <h1 className="text-3xl font-bold text-white">{job.title}</h1>
