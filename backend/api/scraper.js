@@ -1,16 +1,12 @@
 const puppeteer = require("puppeteer");
+const Job = require("../models/Job");
 
-async function scrapeJobs() {
+module.exports = async (req, res) => {
   console.log("🔍 Scraping jobs...");
 
   const browser = await puppeteer.launch({
     headless: "new",
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-gpu"
-    ],
+    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage", "--disable-gpu"]
   });
 
   const page = await browser.newPage();
@@ -30,13 +26,20 @@ async function scrapeJobs() {
     });
 
     console.log(`✅ Scraped ${jobs.length} jobs.`);
-    console.log("✅ Scraped jobs:", JSON.stringify(jobs, null, 2));
+
+    if (jobs.length > 0) {
+      for (let job of jobs) {
+        await Job.findOneAndUpdate({ link: job.link }, job, { upsert: true });
+      }
+      console.log("✅ Jobs updated in MongoDB.");
+    }
+
+    res.json({ success: true, jobs });
 
   } catch (error) {
     console.error("❌ Error scraping jobs:", error);
+    res.status(500).json({ success: false, error: error.message });
   }
 
   await browser.close();
-}
-
-module.exports = scrapeJobs;
+};
