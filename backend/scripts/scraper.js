@@ -1,10 +1,10 @@
 const puppeteer = require("puppeteer");
-const Job = require("../models/Job");
 
 async function scrapeJobs() {
   console.log("🔍 Scraping jobs...");
-  
+
   const browser = await puppeteer.launch({
+    executablePath: "/usr/bin/google-chrome-stable", // Use system-installed Chrome
     headless: "new",
     args: [
       "--no-sandbox",
@@ -31,19 +31,8 @@ async function scrapeJobs() {
     });
 
     console.log(`✅ Scraped ${jobs.length} jobs.`);
-    
-    if (jobs.length > 0) {
-      for (let job of jobs) {
-        await Job.findOneAndUpdate(
-          { link: job.link },
-          job,
-          { upsert: true }
-        );
-      }
-      console.log("✅ Jobs updated in MongoDB.");
-    } else {
-      console.log("⚠️ No jobs found. The website structure might have changed.");
-    }
+    console.log("✅ Scraped jobs:", JSON.stringify(jobs, null, 2));
+
   } catch (error) {
     console.error("❌ Error scraping jobs:", error);
   }
