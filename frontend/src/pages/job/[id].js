@@ -13,7 +13,7 @@ export default function JobDetails() {
 
     async function fetchJobDetails() {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs/${id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/jobs/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch job details");
         }

@@ -21,7 +21,7 @@ export default function Home() {
     setLoading(true);
 
     try {
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs?page=${page}&limit=10`);
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/jobs?page=${page}&limit=10`);
       const newJobs = [...jobs, ...data.jobs];
 
       setJobs(newJobs);
